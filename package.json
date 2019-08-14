@@ -12,6 +12,13 @@
   "engines": {
     "node": ">=8.16"
   },
+  "keywords": [
+    "marv",
+    "database",
+    "migration",
+    "migrate",
+    "oracle"
+  ],
   "license": "ISC",
   "dependencies": {
     "async": "^3.1.0",
@@ -33,5 +40,16 @@
     "hooks": {
       "pre-push": "npm run lint && npm test"
     }
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cressie176/marv-oracledb-driver.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cressie176/marv-oracledb-driver/issues"
+  },
+  "homepage": "https://github.com/cressie176/marv-oracledb-driver#readme"
 }

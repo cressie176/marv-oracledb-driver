@@ -1,4 +1,3 @@
-[![Build Status](https://img.shields.io/travis/guidesmiths/marv-pg-driver/master.svg)](https://travis-ci.org/guidesmiths/marv-pg-driver)
 [![Code Style](https://img.shields.io/badge/code%20style-imperative-brightgreen.svg)](https://github.com/guidesmiths/eslint-config-imperative)
 
 # marv-oracle-driver
@@ -13,7 +12,7 @@ migrations/
 
 ```js
 const marv = require('marv')
-const oracleDriver = require('marv-oracle-driver')
+const oracleDriver = require('marv-oracledb-driver')
 const directory = path.join(process.cwd(), 'migrations' )
 const driver = oracleDriver({
   table: 'db_migrations',     // defaults to 'migrations'
