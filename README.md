@@ -3,6 +3,8 @@
 # marv-oracledb-driver
 An Oracle driver for [marv](https://www.npmjs.com/package/marv)
 
+"If [@cliftonc](https://www.npmjs.com/package/@infinitaslearning/marv-mssql-driver) can do it, @cressie176 can do it better" Anon, 2019
+
 ## Usage
 ```
 migrations/
