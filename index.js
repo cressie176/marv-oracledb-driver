@@ -73,7 +73,7 @@ module.exports = function(options) {
         if (err) return cb(err);
         return cb();
       });
-    }
+    };
   }
 
   function dropTable(script) {
@@ -83,7 +83,7 @@ module.exports = function(options) {
         if (err) return cb(err);
         return cb();
       });
-    }
+    };
   }
 
   function lockMigrations(cb) {
@@ -106,7 +106,7 @@ module.exports = function(options) {
           timestamp: row[2],
           checksum: row[3],
           namespace: row[4],
-        }
+        };
       }));
     });
   }
