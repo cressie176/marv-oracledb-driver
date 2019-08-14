@@ -1,0 +1,5 @@
+CREATE TABLE foo (
+  id INTEGER PRIMARY KEY,
+  value VARCHAR(255) NOT NULL
+)
+

@@ -1,0 +1,37 @@
+{
+  "name": "marv-oracledb-driver",
+  "version": "1.0.0",
+  "description": "An Oracle marv driver implementation",
+  "main": "index.js",
+  "scripts": {
+    "docker": "docker start oracle-xe",
+    "test": "node test/suite.js",
+    "lint": "eslint ."
+  },
+  "author": "Stephen Cresswell",
+  "engines": {
+    "node": ">=8.16"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.1.0",
+    "debug": "^4.1.1",
+    "marv": "^2.4.0",
+    "oracledb": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-imperative": "^3.0.0",
+    "eslint-plugin-imperative": "^3.0.0",
+    "hath": "^1.0.1",
+    "hath-assert": "^0.2.0",
+    "hath-report-spec": "^0.1.0",
+    "husky": "^3.0.3",
+    "marv-compliance-tests": "^2.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint && npm test"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+LOCK TABLE migrations_lock IN EXCLUSIVE MODE
