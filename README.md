@@ -1,6 +1,6 @@
 [![Code Style](https://img.shields.io/badge/code%20style-imperative-brightgreen.svg)](https://github.com/guidesmiths/eslint-config-imperative)
 
-# marv-oracle-driver
+# marv-oracledb-driver
 An Oracle driver for [marv](https://www.npmjs.com/package/marv)
 
 ## Usage
