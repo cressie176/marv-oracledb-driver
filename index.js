@@ -53,33 +53,23 @@ module.exports = function(options) {
   function dropMigrations(cb) {
     debug('Dropping migrations from %s', getLoggableUrl());
     async.series([
-      dropTable(SQL.dropMigrationsTable),
-      dropTable(SQL.dropMigrationsLockTable),
+      ensureScript(SQL.dropMigrationsTable, 942),
+      ensureScript(SQL.dropMigrationsLockTable, 942),
     ], cb);
   }
 
   function ensureMigrations(cb) {
     debug('Ensure migration tables');
     async.series([
-      ensureTable(SQL.ensureMigrationsTable),
-      ensureTable(SQL.ensureMigrationsLockTable),
+      ensureScript(SQL.ensureMigrationsTable, 955),
+      ensureScript(SQL.ensureMigrationsLockTable, 955),
     ], guard(cb));
   }
 
-  function ensureTable(script) {
+  function ensureScript(script, duplicateCode) {
     return function(cb) {
       migrationClient.execute(script, function(err) {
-        if (err && err.errorNum === 955) return cb();
-        if (err) return cb(err);
-        return cb();
-      });
-    };
-  }
-
-  function dropTable(script) {
-    return function(cb) {
-      migrationClient.execute(script, function(err) {
-        if (err && err.errorNum === 942) return cb();
+        if (err && err.errorNum === duplicateCode) return cb();
         if (err) return cb(err);
         return cb();
       });

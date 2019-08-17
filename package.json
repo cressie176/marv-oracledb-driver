@@ -4,6 +4,8 @@
   "description": "An Oracle marv driver implementation",
   "main": "index.js",
   "scripts": {
+    "coverage": "nyc --report html --reporter lcov --reporter text-summary node test/suite.js",
+    "codeclimate": "(test -e .codeclimate && npm run coverage && source .codeclimate && codeclimate-test-reporter < coverage/lcov.info) || echo skipping codeclimate",
     "docker": "docker start oracle-xe",
     "test": "node test/suite.js",
     "lint": "eslint ."
@@ -34,11 +36,12 @@
     "hath-assert": "^0.2.0",
     "hath-report-spec": "^0.1.0",
     "husky": "^3.0.3",
-    "marv-compliance-tests": "^2.0.0"
+    "marv-compliance-tests": "^2.0.0",
+    "nyc": "^14.1.1"
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint && npm test"
+      "pre-push": "npm run lint && npm run coverage"
     }
   },
   "directories": {
