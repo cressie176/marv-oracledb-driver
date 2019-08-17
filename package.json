@@ -41,7 +41,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint && npm run coverage"
+      "pre-push": "npm run lint && npm run codeclimate"
     }
   },
   "directories": {
