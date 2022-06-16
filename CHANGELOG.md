@@ -4,6 +4,7 @@
 - Run tests inside a docker container
 - Upgrade oracledb library
 - Require node >= 12
+- Fix audit warnings
 
 ## [1.0.1]
 - Codeclimate integration
