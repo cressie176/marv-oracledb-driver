@@ -5,6 +5,7 @@
 - Upgrade oracledb library
 - Require node >= 12
 - Fix audit warnings
+- Update prod dependencies
 
 ## [1.0.1]
 - Codeclimate integration

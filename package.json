@@ -22,9 +22,8 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "async": "^3.1.0",
-    "debug": "^4.1.1",
-    "marv": "^2.4.0",
+    "async": "^3.2.4",
+    "debug": "^4.3.4",
     "oracledb": "^5.4.0"
   },
   "devDependencies": {
@@ -35,7 +34,8 @@
     "hath-assert": "^0.2.0",
     "hath-report-spec": "^0.1.0",
     "husky": "^3.0.3",
-    "marv-compliance-tests": "^2.0.0",
+    "marv": "^5.0.0",
+    "marv-compliance-tests": "^3.0.1",
     "nyc": "^14.1.1"
   },
   "husky": {
