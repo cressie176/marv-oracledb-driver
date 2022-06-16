@@ -11,7 +11,7 @@
   },
   "author": "Stephen Cresswell",
   "engines": {
-    "node": ">=8.16"
+    "node": ">=12"
   },
   "keywords": [
     "marv",
@@ -25,7 +25,7 @@
     "async": "^3.1.0",
     "debug": "^4.1.1",
     "marv": "^2.4.0",
-    "oracledb": "^4.0.0"
+    "oracledb": "^5.4.0"
   },
   "devDependencies": {
     "eslint": "^6.1.0",
