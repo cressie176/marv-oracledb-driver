@@ -7,8 +7,7 @@ var marv = require('marv');
 var supportedDirectives = ['audit', 'comment', 'skip'];
 var pkg = require('./package.json');
 
-module.exports = function(options) {
-
+module.exports = function (options) {
   var config = _.merge({ table: 'migrations', connection: {} }, _.omit(options, 'logger'));
   var logger = options.logger || console;
   var SQL = {
@@ -19,7 +18,7 @@ module.exports = function(options) {
     dropMigrationsLockTable: load('drop-migrations-lock-table.sql'),
     lockMigrationsLockTable: load('lock-migrations-lock-table.sql'),
     unlockMigrationsLockTable: load('unlock-migrations-lock-table.sql'),
-    insertMigration: load('insert-migration.sql')
+    insertMigration: load('insert-migration.sql'),
   };
   var oracledb = config.oracledb || require('oracledb');
   var lockClient;
@@ -28,47 +27,40 @@ module.exports = function(options) {
 
   function connect(cb) {
     debug('Connecting to %s', getLoggableUrl());
-    async.series({
-      lockClient: oracledb.getConnection.bind(oracledb, config.connection),
-      migrationClient: oracledb.getConnection.bind(oracledb, config.connection),
-      userClient: oracledb.getConnection.bind(oracledb, config.connection),
-    }, function(err, clients) {
-      if (err) return cb(err);
-      lockClient = clients.lockClient;
-      migrationClient = clients.migrationClient;
-      userClient = clients.userClient;
-      cb();
-    });
+    async.series(
+      {
+        lockClient: oracledb.getConnection.bind(oracledb, config.connection),
+        migrationClient: oracledb.getConnection.bind(oracledb, config.connection),
+        userClient: oracledb.getConnection.bind(oracledb, config.connection),
+      },
+      function (err, clients) {
+        if (err) return cb(err);
+        lockClient = clients.lockClient;
+        migrationClient = clients.migrationClient;
+        userClient = clients.userClient;
+        cb();
+      }
+    );
   }
 
   function disconnect(cb) {
     debug('Disconnecting from %s', getLoggableUrl());
-    async.series([
-      lockClient.close.bind(lockClient),
-      migrationClient.close.bind(migrationClient),
-      userClient.close.bind(userClient)
-    ], guard(cb));
+    async.series([lockClient.close.bind(lockClient), migrationClient.close.bind(migrationClient), userClient.close.bind(userClient)], guard(cb));
   }
 
   function dropMigrations(cb) {
     debug('Dropping migrations from %s', getLoggableUrl());
-    async.series([
-      ensureScript(SQL.dropMigrationsTable, 942),
-      ensureScript(SQL.dropMigrationsLockTable, 942),
-    ], cb);
+    async.series([ensureScript(SQL.dropMigrationsTable, 942), ensureScript(SQL.dropMigrationsLockTable, 942)], cb);
   }
 
   function ensureMigrations(cb) {
     debug('Ensure migration tables');
-    async.series([
-      ensureScript(SQL.ensureMigrationsTable, 955),
-      ensureScript(SQL.ensureMigrationsLockTable, 955),
-    ], guard(cb));
+    async.series([ensureScript(SQL.ensureMigrationsTable, 955), ensureScript(SQL.ensureMigrationsLockTable, 955)], guard(cb));
   }
 
   function ensureScript(script, duplicateCode) {
-    return function(cb) {
-      migrationClient.execute(script, function(err) {
+    return function (cb) {
+      migrationClient.execute(script, function (err) {
         if (err && err.errorNum === duplicateCode) return cb();
         if (err) return cb(err);
         return cb();
@@ -87,23 +79,26 @@ module.exports = function(options) {
   }
 
   function getMigrations(cb) {
-    migrationClient.execute(SQL.retrieveMigrations, [], { maxRows: 0 }, function(err, result) {
+    migrationClient.execute(SQL.retrieveMigrations, [], { maxRows: 0 }, function (err, result) {
       if (err) return cb(err);
-      cb(null, _.map(result.rows, function(row) {
-        return {
-          level: row[0],
-          comment: row[1],
-          timestamp: row[2],
-          checksum: row[3],
-          namespace: row[4],
-        };
-      }));
+      cb(
+        null,
+        _.map(result.rows, function (row) {
+          return {
+            level: row[0],
+            comment: row[1],
+            timestamp: row[2],
+            checksum: row[3],
+            namespace: row[4],
+          };
+        })
+      );
     });
   }
 
   function runMigration(migration, cb) {
     debug('Run migration');
-    _.defaults(migration, { directives: {}  });
+    _.defaults(migration, { directives: {} });
 
     checkDirectives(migration.directives);
 
@@ -113,16 +108,10 @@ module.exports = function(options) {
     }
 
     debug('Run migration %s: %s\n%s', migration.level, migration.comment, migration.script);
-    userClient.execute(migration.script, function(err) {
+    userClient.execute(migration.script, function (err) {
       if (err) return cb(decorate(err, migration));
       if (auditable(migration)) {
-        return migrationClient.execute(SQL.insertMigration, [
-          migration.level,
-          migration.directives.comment || migration.comment,
-          migration.timestamp,
-          migration.checksum,
-          migration.namespace || 'default'
-        ], { autoCommit: true }, function(err) {
+        return migrationClient.execute(SQL.insertMigration, [migration.level, migration.directives.comment || migration.comment, migration.timestamp, migration.checksum, migration.namespace || 'default'], { autoCommit: true }, function (err) {
           if (err) return cb(decorate(err, migration));
           cb();
         });
@@ -157,7 +146,7 @@ module.exports = function(options) {
   }
 
   function guard(cb) {
-    return function(err) {
+    return function (err) {
       cb(err);
     };
   }
@@ -174,6 +163,6 @@ module.exports = function(options) {
     lockMigrations: lockMigrations,
     unlockMigrations: unlockMigrations,
     getMigrations: getMigrations,
-    runMigration: runMigration
+    runMigration: runMigration,
   };
 };

@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "coverage": "nyc --report html --reporter lcov --reporter text-summary node test/suite.js",
-    "codeclimate": "(test -e .codeclimate && npm run coverage && source .codeclimate && codeclimate-test-reporter < coverage/lcov.info) || echo skipping codeclimate",
-    "test": "docker-compose run test",
-    "lint": "eslint ."
+    "test": "docker-compose run --no-TTY test",
+    "lint": "eslint .",
+    "prepare": "husky install"
   },
   "author": "Stephen Cresswell",
   "engines": {
@@ -27,21 +27,25 @@
     "oracledb": "^5.4.0"
   },
   "devDependencies": {
-    "eslint": "^6.1.0",
-    "eslint-config-imperative": "^3.0.0",
-    "eslint-plugin-imperative": "^3.0.0",
+    "eslint": "^8.17.0",
+    "eslint-config-prettier": "^8.5.0",
     "hath": "^1.0.1",
     "hath-assert": "^0.2.0",
     "hath-report-spec": "^0.1.0",
-    "husky": "^3.0.3",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.1",
     "marv": "^5.0.0",
     "marv-compliance-tests": "^3.0.1",
-    "nyc": "^14.1.1"
+    "nyc": "^14.1.1",
+    "prettier": "2.7.0"
   },
   "husky": {
     "hooks": {
       "pre-push": "npm run lint && npm run codeclimate"
     }
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "directories": {
     "test": "test"

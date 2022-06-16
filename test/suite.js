@@ -12,8 +12,8 @@ function setup(t, done) {
     connection: {
       connectionString: 'oracledb:1521/XEPDB1',
       user: 'test_user',
-      password: 'test_password'
-    }
+      password: 'test_password',
+    },
   };
   t.locals.config = config;
   t.locals.driver = driver(config);
@@ -24,7 +24,7 @@ function setup(t, done) {
       comment: 'test migration',
       script: 'SELECT 1 FROM DUAL',
       timestamp: new Date(),
-      checksum: '401f1b790bf394cf6493425c1d7e33b0'
+      checksum: '401f1b790bf394cf6493425c1d7e33b0',
     },
     namespace: {
       level: 1,
@@ -32,58 +32,42 @@ function setup(t, done) {
       script: 'SELECT 1 FROM DUAL',
       timestamp: new Date(),
       checksum: '401f1b790bf394cf6493425c1d7e33b0',
-      namespace: 'so-special'
+      namespace: 'so-special',
     },
     comment: {
       level: 2,
       comment: 'do not use',
-      script: [
-        '-- @MARV foo = bar\n',
-        '-- @MARV COMMENT = override\n',
-        'SELECT 1 FROM DUAL'
-      ].join('\n'),
+      script: ['-- @MARV foo = bar\n', '-- @MARV COMMENT = override\n', 'SELECT 1 FROM DUAL'].join('\n'),
       timestamp: new Date(),
-      checksum: '401f1b790bf394cf6493425c1d7e33b0'
+      checksum: '401f1b790bf394cf6493425c1d7e33b0',
     },
     audit: {
       level: 3,
       comment: 'test migration',
-      script: [
-        '-- @MARV foo = bar\n',
-        '-- @MARV AUDIT   = false\n',
-        'SELECT 1 FROM DUAL'
-      ].join('\n'),
+      script: ['-- @MARV foo = bar\n', '-- @MARV AUDIT   = false\n', 'SELECT 1 FROM DUAL'].join('\n'),
       timestamp: new Date(),
-      checksum: '401f1b790bf394cf6493425c1d7e33b0'
+      checksum: '401f1b790bf394cf6493425c1d7e33b0',
     },
     skip: {
       level: 4,
       comment: 'test migration',
-      script: [
-        '-- @MARV foo = bar\n',
-        '-- @MARV SKIP   = true\n',
-        'INVALID'
-      ].join('\n'),
+      script: ['-- @MARV foo = bar\n', '-- @MARV SKIP   = true\n', 'INVALID'].join('\n'),
       timestamp: new Date(),
-      checksum: '401f1b790bf394cf6493425c1d7e33b0'
+      checksum: '401f1b790bf394cf6493425c1d7e33b0',
     },
     fail: {
       level: 5,
       comment: 'failing migration',
       script: 'INVALID',
       timestamp: new Date(),
-      checksum: '401f1b790bf394cf6493425c1d7e33b0'
-    }
+      checksum: '401f1b790bf394cf6493425c1d7e33b0',
+    },
   };
   t.locals.migration = t.locals.migrations.simple;
   done();
 }
 
-module.exports = Hath.suite('Oracle Driver Tests', [
-  setup,
-  complianceTests,
-  driverTests
-]);
+module.exports = Hath.suite('Oracle Driver Tests', [setup, complianceTests, driverTests]);
 
 if (module === require.main) {
   module.exports(new Hath(report));

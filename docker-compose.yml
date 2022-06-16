@@ -18,4 +18,3 @@ services:
       - ./:/opt/marv-oracle-db-driver
     depends_on:
       - oracledb
-
