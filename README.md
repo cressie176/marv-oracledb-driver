@@ -57,6 +57,6 @@ marv.scan(directory, (err, migrations) => {
 ## Testing
 ```bash
 npm install
-npm run docker
 npm test
 ```
+Tests run inside a docker container that contains the oracle client libraries, and against an Oracle XE instance which is also in a container. Both are managed by docker-compose and launched by running npm test, however it the database does take a while to start, so tests may fail initially.

@@ -10,9 +10,9 @@ function setup(t, done) {
     table: 'ora_migrations',
     quiet: true,
     connection: {
-      connectionString: 'localhost:32118/XE',
-      user: 'system',
-      password: 'Oracle18'
+      connectionString: 'oracledb:1521/XEPDB1',
+      user: 'test_user',
+      password: 'test_password'
     }
   };
   t.locals.config = config;
