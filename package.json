@@ -1,6 +1,6 @@
 {
   "name": "marv-oracledb-driver",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "An Oracle marv driver implementation",
   "main": "index.js",
   "scripts": {
