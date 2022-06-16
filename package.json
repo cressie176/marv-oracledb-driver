@@ -4,7 +4,7 @@
   "description": "An Oracle marv driver implementation",
   "main": "index.js",
   "scripts": {
-    "coverage": "nyc --report html --reporter lcov --reporter text-summary node test/suite.js",
+    "coverage": "docker-compose run --no-TTY test npx nyc --report html --reporter lcov --reporter text-summary node test/suite.js",
     "test": "docker-compose run --no-TTY test",
     "lint": "eslint .",
     "prepare": "husky install"
@@ -36,7 +36,7 @@
     "lint-staged": "^13.0.1",
     "marv": "^5.0.0",
     "marv-compliance-tests": "^3.0.1",
-    "nyc": "^14.1.1",
+    "nyc": "^15.1.0",
     "prettier": "2.7.0"
   },
   "husky": {

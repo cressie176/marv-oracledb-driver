@@ -8,6 +8,7 @@
 - Fix audit warnings
 - Update prod dependencies
 - Switch to prettier
+- Update dev depdencies
 
 ## [1.0.1]
 
